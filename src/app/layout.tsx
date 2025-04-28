@@ -1,21 +1,15 @@
 // app/layout.tsx
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import { Inter } from 'next/font/google'; // Import Inter from google fonts
+import { GeistSans } from 'geist/font/sans'; // Import Geist Sans
+import { GeistMono } from 'geist/font/mono'; // Import Geist Mono
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { SidebarProvider } from '@/components/ui/sidebar';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
+// Initialize Inter font
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -33,10 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning> {/* Keep suppressHydrationWarning here */}
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}> {/* Add Geist variables to html tag */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`}
-        // No need for suppressHydrationWarning here if it's on the html tag
+        className={`${inter.variable} font-sans antialiased`} // Use Inter as the base font
       >
         <SidebarProvider> {/* Wrap content with SidebarProvider */}
           {children}
