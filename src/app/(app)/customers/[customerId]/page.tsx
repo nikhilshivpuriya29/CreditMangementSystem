@@ -22,6 +22,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast";
+import { FormattedDate } from '@/components/formatted-date'; // Import the safe date formatting component
 
 // Mock data - replace with actual data fetching based on customerId
 const MOCK_CUSTOMERS = {
@@ -194,7 +195,9 @@ export default function CustomerDetailPage() {
                          <span className="ml-2 font-semibold"> ({formatCurrency(tx.amount)})</span>
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1">
-                          <Calendar className="h-3 w-3"/> {new Date(tx.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric'})}
+                          <Calendar className="h-3 w-3"/>
+                          {/* Replace direct formatting with the client component */}
+                           <FormattedDate dateString={tx.date} formatStyle="PPP" />
                       </p>
                       {tx.notes && <p className="text-xs text-foreground mt-1">{tx.notes}</p>}
                     </div>

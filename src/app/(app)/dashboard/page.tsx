@@ -1,8 +1,11 @@
 
+"use client"; // Add use client directive as FormattedDate is a client component
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ArrowDownLeft, PlusCircle, Users, BookOpen, FileText, BarChart3, IndianRupee } from "lucide-react";
 import Link from 'next/link';
+import { FormattedDate } from "@/components/formatted-date"; // Import the safe date formatting component
 
 // Mock data - replace with actual data fetching
 const dashboardData = {
@@ -11,9 +14,9 @@ const dashboardData = {
   customersDue: 12,
   suppliersDue: 3,
   recentTransactions: [
-    { id: 1, type: 'received', customer: 'Anil Kumar', amount: 500, date: 'Today' },
-    { id: 2, type: 'given', customer: 'Sunita Devi', amount: 1200, date: 'Yesterday' },
-    { id: 3, type: 'received', customer: 'Ramesh Gupta', amount: 250, date: '2 days ago' },
+    { id: 1, type: 'received', customer: 'Anil Kumar', amount: 500, date: '2024-07-26' }, // Use ISO format dates
+    { id: 2, type: 'given', customer: 'Sunita Devi', amount: 1200, date: '2024-07-25' },
+    { id: 3, type: 'received', customer: 'Ramesh Gupta', amount: 250, date: '2024-07-24' },
   ]
 };
 
@@ -117,7 +120,10 @@ export default function DashboardPage() {
                        <p className={`text-sm font-semibold ${tx.type === 'received' ? 'text-green-700' : 'text-red-700'}`}>
                             {tx.type === 'received' ? '+' : '-'} {formatCurrency(tx.amount)}
                         </p>
-                        <p className="text-xs text-muted-foreground">{tx.date}</p>
+                        {/* Use FormattedDate component */}
+                        <p className="text-xs text-muted-foreground">
+                           <FormattedDate dateString={tx.date} formatStyle="PP" />
+                        </p>
                     </div>
                 </li>
                 ))}

@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select" // Import Select components
+import { FormattedDate } from '@/components/formatted-date'; // Import the safe date formatting component
 
 // Mock transaction data - replace with actual data fetching and state management
 const allTransactions = [
@@ -58,9 +59,7 @@ export default function TransactionsPage() {
        return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2 }).format(amount);
    };
 
-   const formatDate = (dateString: string) => {
-       return new Date(dateString).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-   }
+   // Removed formatDate as we now use FormattedDate component
 
    const handleTabChange = (value: string) => {
        setFilterType(value as TransactionType);
@@ -138,7 +137,9 @@ export default function TransactionsPage() {
                                         {formatCurrency(tx.amount)}
                                     </p>
                                     <p className="text-xs text-muted-foreground flex items-center gap-1 justify-start sm:justify-end mt-0.5">
-                                         <Calendar className="h-3 w-3"/> {formatDate(tx.date)}
+                                         <Calendar className="h-3 w-3"/>
+                                         {/* Replace direct formatting with the client component */}
+                                         <FormattedDate dateString={tx.date} formatStyle="PP" /> {/* Using PP for shorter date format */}
                                      </p>
                                  </div>
                               </Link>
