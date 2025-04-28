@@ -33,12 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning> {/* Keep suppressHydrationWarning here */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`}
-        suppressHydrationWarning
+        // No need for suppressHydrationWarning here if it's on the html tag
       >
-        <SidebarProvider>
+        <SidebarProvider> {/* Wrap content with SidebarProvider */}
           {children}
         </SidebarProvider>
         <Toaster />
