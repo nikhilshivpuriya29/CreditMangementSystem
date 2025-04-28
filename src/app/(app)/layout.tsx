@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import Link from 'next/link'; // Import Link
 import {
   Sidebar,
   SidebarContent,
@@ -45,6 +46,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   ];
   const currentBusiness = businesses[0]; // Assume first business is active
 
+  // TODO: Implement logic to determine active business and potentially switch via dropdown
+
   return (
     <div className="flex min-h-screen w-full bg-muted/40">
       <Sidebar side="left" variant="sidebar" collapsible="icon">
@@ -52,7 +55,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between p-2">
              <div className="flex items-center gap-2 overflow-hidden">
                <svg viewBox="0 0 24 24" fill="currentColor" className="size-6 text-primary shrink-0">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path> {/* Replace with a simple logo-like SVG */}
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path> {/* Simple logo */}
                 </svg>
                 <span className="font-semibold text-lg whitespace-nowrap truncate">Vyapar Sahayak</span>
              </div>
@@ -62,24 +65,39 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </SidebarHeader>
 
         <SidebarContent className="flex-1 p-2">
-           {/* Business Selector - Conditional render based on sidebar state */}
+           {/* Business Selector - Currently static, needs dropdown implementation */}
            <SidebarGroup>
              <SidebarGroupLabel>Business</SidebarGroupLabel>
                 <SidebarMenu>
                  <SidebarMenuItem>
                     {/* In a real app, this would be a dropdown/select */}
-                    <SidebarMenuButton className="justify-between group-data-[collapsible=icon]:justify-center">
+                    <SidebarMenuButton className="justify-between group-data-[collapsible=icon]:justify-center" href="/business" tooltip="Manage Businesses">
                      <div className="flex items-center gap-2 truncate">
                         <Building className="size-4" />
                         <span className="truncate">{currentBusiness.name}</span>
                       </div>
                      <ChevronDown className="size-4 ml-auto transition-transform duration-200 group-data-[state=open]:rotate-180 group-data-[collapsible=icon]:hidden" />
                    </SidebarMenuButton>
-                   {/* Sub menu would contain other businesses and Add New */}
-                   {/* <SidebarMenuSub> ... </SidebarMenuSub> */}
+                   {/* Sub menu for business switching/management would go here */}
+                   {/*
+                   <SidebarMenuSub>
+                     {businesses.map(business => (
+                       <SidebarMenuSubItem key={business.id}>
+                         <SidebarMenuSubButton href={`/business/switch/${business.id}`}>
+                           {business.name}
+                         </SidebarMenuSubButton>
+                       </SidebarMenuSubItem>
+                     ))}
+                     <SidebarMenuSubItem>
+                         <SidebarMenuSubButton href="/business">
+                           Manage Businesses
+                         </SidebarMenuSubButton>
+                       </SidebarMenuSubItem>
+                   </SidebarMenuSub>
+                   */}
                  </SidebarMenuItem>
                    <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Add New Business">
+                    <SidebarMenuButton href="/business/add" tooltip="Add New Business">
                        <PlusCircle className="size-4" />
                        <span>Add New Business</span>
                      </SidebarMenuButton>
@@ -137,7 +155,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              {/* In real app, this button would trigger logout logic */}
+              {/* In real app, this button might trigger logout logic before redirect */}
               <SidebarMenuButton href="/login" tooltip="Logout" className="text-destructive hover:bg-destructive/10 hover:text-destructive">
                 <LogOut className="size-4" />
                 <span>Logout</span>
