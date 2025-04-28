@@ -1,10 +1,10 @@
+// app/layout.tsx
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import { Inter } from 'next/font/google'; // Import Inter
+import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster'; // Import Toaster
-import { SidebarProvider } from '@/components/ui/sidebar'; // Import SidebarProvider
+import { Toaster } from '@/components/ui/toaster';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,33 +16,32 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-// Configure Inter font
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter', // Define a CSS variable for Inter
+  variable: '--font-inter',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Vyapar Sahayak', // Update title
-  description: 'Digitizing Traditional Ledger Management for SMBs', // Update description
+  title: 'Vyapar Sahayak',
+  description: 'Digitizing Traditional Ledger Management for SMBs',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning> {/* Move suppressHydrationWarning to html tag for broader coverage */}
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`} // Add inter variable and set default font to sans
-        suppressHydrationWarning={true} // Keep on body as well, although html might suffice
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`}
+        suppressHydrationWarning
       >
-        <SidebarProvider> {/* Wrap content with SidebarProvider */}
+        <SidebarProvider>
           {children}
         </SidebarProvider>
-        <Toaster /> {/* Add Toaster component */}
+        <Toaster />
       </body>
     </html>
   );
