@@ -2,12 +2,8 @@
 // app/layout.tsx
 
 import type { Metadata } from 'next';
-// Correct imports for Geist fonts
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-// Keep Inter import from next/font/google
+// Only import Inter font from next/font/google
 import { Inter } from 'next/font/google';
-
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { SidebarProvider } from '@/components/ui/sidebar';
@@ -30,12 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Add suppressHydrationWarning to the html tag to handle potential browser extension interference
+    // Keep suppressHydrationWarning on html tag
     <html lang="en" suppressHydrationWarning>
       <body
-        // Combine GeistSans, GeistMono, and Inter variables
-        // Access .variable directly for Geist fonts
-        className={`${GeistSans.variable} ${GeistMono.variable} ${inter.variable} font-sans antialiased`}
+        // Use only Inter font variable and Tailwind's font-sans utility
+        className={`${inter.variable} font-sans antialiased`}
         // No need for suppressHydrationWarning here if it's on the html tag
       >
         <SidebarProvider> {/* Wrap content with SidebarProvider */}
@@ -46,4 +41,3 @@ export default function RootLayout({
     </html>
   );
 }
-
