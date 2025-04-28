@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning> {/* Move suppressHydrationWarning to html tag for broader coverage */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} font-sans antialiased`} // Add inter variable and set default font to sans
-        // Remove suppressHydrationWarning here as it's on the html tag
+        suppressHydrationWarning={true} // Keep on body as well, although html might suffice
       >
         <SidebarProvider> {/* Wrap content with SidebarProvider */}
           {children}
@@ -47,4 +47,3 @@ export default function RootLayout({
     </html>
   );
 }
-
